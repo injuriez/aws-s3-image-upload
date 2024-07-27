@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { EmbedBuilder } from 'discord.js';
-import { text } from 'stream/consumers';
+
 const ImageGallery = () => {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
