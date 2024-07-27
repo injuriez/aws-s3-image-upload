@@ -10,18 +10,30 @@
     "@aws-sdk/client-s3": "^3.451.0",
     "@aws-sdk/s3-presigned-post": "^3.451.0",
     "@aws-sdk/signature-v4-crt": "^3.451.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@nextui-org/react": "^2.4.6",
     "@types/node": "20.9.0",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",
     "aws-crt": "^1.19.0",
     "aws-sdk": "^2.1497.0",
+    "discord.js": "^14.15.3",
     "encoding": "^0.1.13",
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.2",
-    "next": "^14.0.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "framer-motion": "^11.3.13",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-responsive": "^10.0.0",
     "typescript": "5.2.2",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6"
   }
 }

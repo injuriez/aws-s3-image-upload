@@ -16,14 +16,13 @@ export default function Page() {
 
     setUploading(true)
 
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + '/api/upload',
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ filename: file.name, contentType: file.type }),
+        body: JSON.stringify({ filename: file.name, contentType: file.type, user: 'test' }),
       }
     )
 
@@ -34,7 +33,13 @@ export default function Page() {
       Object.entries(fields).forEach(([key, value]) => {
         formData.append(key, value as string)
       })
-      formData.append('file', file)
+
+      const newBlob = new Blob([file], { type: file.type })
+      const newFilename = "newName_" + file.name;
+
+
+      formData.append('file', newBlob, newFilename);
+
 
       const uploadResponse = await fetch(url, {
         method: 'POST',
@@ -67,7 +72,7 @@ export default function Page() {
               setFile(files[0])
             }
           }}
-          accept="image/png, image/jpeg"
+          accept="image/png, image/jpeg, image/gif, image/jpg, image/svg, image/webp, image/tiff, image/bmp"
         />
         <button type="submit" disabled={uploading}>
           Upload

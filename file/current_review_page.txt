@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+const ImageGallery = () => {
+  const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch('/api/get-images');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const imageUrls = await response.json();
+        setImages(imageUrls);
+        setLoading(true);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  const handleMouseEnter = (url: string) => {
+    setHoveredImage(url);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredImage(null);
+  };
+
+  return (
+    <div className="p-5 columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4">
+      {images.map((url) => (
+        <div 
+          key={url} 
+          className="mb-4 break-inside-avoid-column relative"
+          onMouseEnter={() => handleMouseEnter(url)}
+          onMouseLeave={handleMouseLeave}
+        >
+          <img
+            src={url}
+            alt="image"
+            className={`w-full h-auto rounded-md max-h-fit object-cover ${hoveredImage === url ? 'opacity-50' : ''}`}
+            width={100}
+            height={100}
+            onLoad={(e) => e.currentTarget.classList.remove('skeleton')}
+            onError={(e) => e.currentTarget.classList.add('skeleton')}
+          />
+          {loading ? null : <div className="bg-white absolute top-0 left-0 w-full h-full z-10 rounded-md skeleton"></div>}
+          {hoveredImage === url && (
+            <motion.div
+              initial={{ y: -10 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-0 left-0 w-full z-20 bg-[#161616] p-2"
+            >
+              <div className="flex items-center justify-between">
+               <div className="flex items-center gap-2 hover:underline">
+                 <img width={30} height={30} src="https://placehold.co/40" className='rounded-full' alt='' />                              
+                 <button className="text-white karla">Unknown User</button>
+               </div>
+               <div className="flex gap-2">
+               <button className="text-white karla border rounded-md px-3">Save</button>
+               <button className="text-white karla border rounded-md px-3">Report</button>
+
+               </div>
+              </div>
+            </motion.div>
+
+        
+
+            
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ImageGallery;
