@@ -2,16 +2,9 @@ import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { S3Client } from '@aws-sdk/client-s3';
 import { v4 as uuidv4 } from 'uuid';
 import { MongoClient, UpdateFilter, Document } from 'mongodb';
-import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function POST(request: Request, res: NextApiResponse) {
-  if (request.method === 'POST') {
-    // Handle the POST request
-    res.status(200).json({ message: 'Upload successful' });
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${request.method} Not Allowed`);
-  }
+export async function POST(request: Request) {
+
   try {
     const { contentType, filename, token } = await request.json();
 
