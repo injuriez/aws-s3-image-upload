@@ -32,7 +32,7 @@ const ImageGallery = () => {
     const fetchImages = async () => {
       try {
     
-        const response = await fetch('/api/get-images');
+        const response = await fetch('/api/images');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
