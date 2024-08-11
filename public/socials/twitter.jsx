@@ -16,4 +16,5 @@ function Icon({ width, height }) {
   );
 }
 
+
 export default Icon;
