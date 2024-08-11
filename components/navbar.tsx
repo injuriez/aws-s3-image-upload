@@ -50,6 +50,7 @@ export default function Navbar() {
         .then((data) => {
             setUser(data.user.alias);
            
+            
         });
     }
 }, []);
