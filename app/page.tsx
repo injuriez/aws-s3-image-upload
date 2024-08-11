@@ -16,13 +16,16 @@ export default function Page() {
 
     setUploading(true)
 
+    //gets token
+    const token = localStorage.getItem("token");
+
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ filename: file.name, contentType: file.type, user: 'test' }),
+        body: JSON.stringify({ filename: file.name, contentType: file.type, token: token }),
       }
     )
 

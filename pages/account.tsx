@@ -5,6 +5,10 @@ import React, {useState, useEffect} from 'react'
 export default function Account() {
 
     const [password, SetPassword] = useState('')
+    const [username, SetUsername] = useState('')
+    //token 
+
+    const [token, setToken] = useState('')
     //for styling
     const [usernameClass, setUsernameClass] = useState('w-full rounded-md h-[40px] text-white px-2 focus:outline-none bg-[#27272a] transition-colors duration-500 ease-in-out');
     const [passwordClass, SetpasswordClass] = useState('w-full rounded-md h-[40px] text-white px-2 focus:outline-none bg-[#27272a] transition-colors duration-500 ease-in-out');
@@ -17,6 +21,7 @@ export default function Account() {
 
         } else {
             SetpasswordClass('w-full rounded-md h-[40px] text-white px-2 focus:outline-none border border-green-500 bg-[#27272a] transition-colors duration-500 ease-in-out');
+            SetPassword(e)
 
         }
 
@@ -27,8 +32,31 @@ export default function Account() {
             setUsernameClass('w-full rounded-md h-[40px] text-white px-2 focus:outline-none border border-red-500 bg-[#27272a] transition-colors duration-500 ease-in-out');
         } else {
             setUsernameClass('w-full rounded-md h-[40px] text-white px-2 focus:outline-none border border-green-500 bg-[#27272a] transition-colors duration-500 ease-in-out');
+            SetUsername(e)
         }
     };
+
+
+    const Mongodb_login = () => {
+
+        fetch('/api/signup/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            setToken(data.token)
+            localStorage.setItem('token', data.token)
+        })
+
+
+    }
     return (
         <>
         <div className="flex min-h-screen bg-[#161616] flex-col">
@@ -43,8 +71,9 @@ export default function Account() {
                         <h1 className="gg text-3xl mb-1">Welcome</h1>
                         <span className="text-white/35 gg">Sign in to your account or create a account</span>
                     </div>
-                    <div className="mb-5">
-                        <button className="w-full py-3 bg-[#3e3e45] text-white rounded-lg  border-white/35 gg">create account</button>
+                    <div className="mb-5 flex flex-col gap-4">
+                        <button className="w-full py-3 bg-[#3e3e45] text-white rounded-lg  border-white/35 gg">Continue with Discord</button>
+                        <button className="w-full py-3 bg-[#3e3e45] text-white rounded-lg  border-white/35 gg">Continue with Twitter</button>
                     </div>
                     <div id="divider">
                         or
@@ -66,7 +95,7 @@ export default function Account() {
 
                     { /* Sign in: button */ }
                     <div className="mt-2">
-                    <button className="w-full py-3 bg-[#3e3e45] text-white rounded-lg  border-white/35 gg">sign in</button>
+                    <button className="w-full py-3 bg-[#3e3e45] text-white rounded-lg  border-white/35 gg" onClick={() => Mongodb_login()}>create account</button>
 
                     </div>
 

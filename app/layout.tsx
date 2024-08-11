@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Next.js',
-  description: 'AWS S3 Upload Example',
+  title: 'voidbox',
+  description: 'exploring the void...',
 }
 
 export default function RootLayout({
