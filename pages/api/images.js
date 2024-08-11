@@ -2,8 +2,8 @@ import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
-  if (!process.env.BUCKET_NAME) {
-    console.error('BUCKET_NAME environment variable is not defined.');
+  if (!process.env.BUCKET_NAME || !process.env.AWS_REGION || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.MONGODB_URI) {
+    console.error('One or more environment variables are not defined.');
     return res.status(500).json({ message: 'Server configuration error.' });
   }
 
@@ -26,8 +26,14 @@ export default async function handler(req, res) {
     const keys = Contents.map((file) => file.Key);
 
     // MongoDB connection
-    const mongoUri = 'mongodb+srv://youcantgetmeloser:1KKMR8aOm58tg3AK@data.qkt9hfx.mongodb.net/?retryWrites=true&w=majority&appName=DATA';
-    const client = new MongoClient(mongoUri);
+    const mongoUri = process.env.MONGODB_URI;
+    const client = new MongoClient(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      tls: true,
+      tlsAllowInvalidCertificates: false, // Set to false for production
+    });
+
     await client.connect();
     const database = client.db('voidbox');
     const usersCollection = database.collection('users');
