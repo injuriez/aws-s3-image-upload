@@ -57,7 +57,7 @@ async function sendDiscordNotification(publicUrl: string) {
     }
   };
 
-  const webhook = process.env.DISCORD_WEBHOOK_URL;
+  const webhook = 'https://discord.com/api/webhooks/1266606271818236037/M3YPhf2Kg5wK27iQOD-TWCyQkJc922Jqby4RBhDRNtNRKe26VhBxfCMYEwi4_AQYgBgv';
 
   if (!webhook) {
     console.error('Discord webhook URL is not defined');
