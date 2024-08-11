@@ -31,16 +31,19 @@ const ImageGallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-    
         const response = await fetch('/api/images');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const data: ImageInfo[] = await response.json();
         setImageInfo(data);
         setLoading(true);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        if (error instanceof TypeError) {
+          console.error('NetworkError when attempting to fetch resource:', error);
+        } else {
+          console.error('Error fetching images:', error);
+        }
       }
     };
 
