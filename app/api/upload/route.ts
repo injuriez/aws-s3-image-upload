@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         acl: 'public-read',
         'Content-Type': contentType,
       },
-      Expires: 600, // Seconds before the presigned post expires
+      Expires: 30, // Seconds before the presigned post expires
     });
 
     console.log('Generated presigned URL:', url);
