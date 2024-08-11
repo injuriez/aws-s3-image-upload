@@ -25,7 +25,7 @@ export default function Page() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ filename: file.name, contentType: file.type, token: token }),
+        body: JSON.stringify({ filename: "blahblah", contentType: file.type, token: token }),
       }
     )
 
