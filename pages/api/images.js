@@ -8,15 +8,15 @@ export default async function handler(req, res) {
   }
 
   const s3 = new S3Client({
-    region: process.env.AWS_REGION,
+    region: 'us-east-1',
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: 'AKIAXYKJW32GA5B3RJEY',
+      secretAccessKey: 'v6hiw8bYRM69YAzXIMAWVDQaK',
     },
   });
 
   try {
-    const command = new ListObjectsCommand({ Bucket: process.env.BUCKET_NAME });
+    const command = new ListObjectsCommand({ Bucket: 'voidbox' });
     const { Contents } = await s3.send(command);
 
     if (!Contents || Contents.length === 0) {
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       const user = await usersCollection.findOne({ imageKeys: key });
       if (user) {
         return {
-          imageUrl: `https://${process.env.BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
+          imageUrl: `https://voidbox.s3.us-east-1.amazonaws.com/${key}`,
           alias: user.alias,
           imageKey: key,
         };
